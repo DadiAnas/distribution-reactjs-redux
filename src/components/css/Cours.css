@@ -1,0 +1,80 @@
+    .nav {
+        width: 100%;
+        background: #FFFFFF;
+        border: 2px solid #F7F7F7;
+    }
+    
+    .ant-layout .ant-layout-has-sider {
+        height: 84vh;
+    }
+    
+    .Sider {
+        background: #FFFFFF;
+        border: 2px solid #F0F0F0;
+    }
+    
+    .footer {
+        float: right;
+    }
+    
+    .btn:hover {
+        background-color: linear-gradient(180deg, rgb(137, 62, 207) 0%, #DE67A2 100%);
+    }
+    
+    .btn:active {
+        background-color: linear-gradient(180deg, rgb(137, 62, 207) 0%, #DE67A2 100%);
+        transform: translateY(4px);
+    }
+    
+    .menu {
+        background: white;
+        border: 2px solid #F0F0F0;
+        height: inherit;
+        overflow-y: auto;
+        height: auto;
+        overflow-x: hidden;
+    }
+    
+    .ant-layout {
+        background: #FFF9FE;
+        border: 2px solid #F0F0F0;
+    }
+    
+    .gutter-box {
+        padding: 8px 0;
+    }
+    
+    .site-card-wrapper {
+        padding: 2%;
+    }
+    
+    .searchbar {
+        position: absolute;
+        height: 40px;
+        right: 100px;
+        border-radius: 100px;
+        width: auto;
+        float: right;
+        MARGIN: 5PX;
+    }
+    
+    .ant-upload-picture-card-wrapper {
+        margin-left: 104px;
+    }
+    
+    .ant-layout-sider-zero-width-trigger {
+        top: -1%;
+        right: -32px;
+        background-color: transparent;
+        font-size: 22px;
+    }
+    
+    .ant-layout-sider-zero-width-trigger:hover {
+        background-color: transparent;
+    }
+    
+    .anticon-bars {
+        color: grey;
+        background: white;
+        border: 1px solid #F0F0F0
+    }
