@@ -19,8 +19,8 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { fetchAll, editOne } from "../redux/actions/models";
-import MultipleInputSelect from "./MultipleInputSelect";
+import { fetchAll, editOne } from "../../redux/actions/models";
+import MultipleInputSelect from "../MultipleInputSelect";
 
 function getBase64(img: any, callback: any) {
   const reader = new FileReader();
@@ -47,26 +47,24 @@ function cancel(e: any) {
   message.error("Click on No");
 }
 
-function EditProductsModal({ visible, showModal, coursToEdit }: any) {
+function EditProductsModal({ visible, showModal, productsToEdit }: any) {
   const [loading, setLoading] = useState(false);
-  const filiers = useSelector((state: any) => state.models["filiers"]);
-  const [cours, setCours] = useState<any>({});
+  const categories = useSelector((state: any) => state.models["categories"]);
+  const [products, setProducts] = useState<any>({ ...productsToEdit });
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue(coursToEdit); //({...coursToEdit,filiers:coursToEdit.filiers.map((f:any) => f.id)})
-    setCours(coursToEdit);
-  }, [coursToEdit]);
-  useEffect(() => {
+    setProducts({ ...productsToEdit.products });
+    form.setFieldsValue(products); //({...productsToEdit,categories:productsToEdit.categories.map((f:any) => f.id)})
     dispatch(fetchAll("categories"));
   }, []);
 
-  function handleAddFiliere(filiersIds: number[]) {
-    console.log({ filiersIds });
-    setCours((cours: any) => ({
-      ...cours,
-      filiers: filiersIds.map((id: any) => ({ id: id.value })),
+  function handleAddFiliere(categoriesIds: number[]) {
+    console.log({ categoriesIds });
+    setProducts((products: any) => ({
+      ...products,
+      categories: categoriesIds.map((id: any) => ({ id: id.value })),
     }));
   }
   const tailLayout = {
@@ -99,23 +97,19 @@ function EditProductsModal({ visible, showModal, coursToEdit }: any) {
   };
 
   const handleEdit = () => {
-    console.log(coursToEdit, cours);
+    console.log(productsToEdit, products);
 
-    dispatch(editOne("products", cours.id, cours));
+    dispatch(editOne("products", products.id, products));
     showModal(false);
   };
   return (
     <Modal
-      title="Edit course"
+      forceRender={true}
+      title="Edit product"
       visible={visible}
       onCancel={() => showModal(false)}
       footer={[
-        <Button
-          form="myForm"
-          key="creer"
-          htmlType="submit"
-          onClick={handleEdit}
-        >
+        <Button form="myForm" key="edit" htmlType="submit" onClick={handleEdit}>
           edit
         </Button>,
         <Button key="cancel" htmlType="button" onClick={() => showModal(false)}>
@@ -123,40 +117,52 @@ function EditProductsModal({ visible, showModal, coursToEdit }: any) {
         </Button>,
       ]}
     >
+      <EditOutlined style={{ color: "#e8501d" }} />
       <Form {...layout} form={form} name="control-hooks" id="myForm">
         <Form.Item
-          name="title"
-          label="Course Name"
+          name="designation"
+          label="Designation"
           rules={[{ required: true }]}
         >
           <Input
-            style={{ marginLeft: "12px" }}
             onChange={(e) => {
               e.persist();
-              setCours((cours: any) => ({ ...cours, title: e.target.value }));
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          name="anneeScolaire"
-          label="Academic Year"
-          rules={[{ required: true }]}
-        >
-          <Input
-            style={{ marginLeft: "12px" }}
-            onChange={(e) => {
-              e.persist();
-              setCours((cours: any) => ({
-                ...cours,
-                anneeScolaire: e.target.value,
+              setProducts((products: any) => ({
+                ...products,
+                designation: e.target.value,
               }));
             }}
           />
         </Form.Item>
-        <Form.Item name="filiers" label="Field(s)">
+        <Form.Item label="Description" name="description">
+          <Input
+            type="text"
+            onChange={(e) => {
+              e.persist();
+              setProducts({ ...products, description: e.target.value });
+            }}
+          />
+        </Form.Item>
+        <Form.Item
+          name="price"
+          label="price"
+          rules={[{ required: true }]}
+          required
+        >
+          <Input
+            type="text"
+            onChange={(e) => {
+              e.persist();
+              setProducts({ ...products, price: parseFloat(e.target.value) });
+            }}
+            required
+          />
+        </Form.Item>
+
+        <Form.Item name="categories" label="Categorie(s)">
           <MultipleInputSelect
-            values={filiers}
-            placeHolder="Select Field"
+            values={categories}
+            placeHolder="Select Categorie"
             key="id"
             title="title"
             handleChange={handleAddFiliere}

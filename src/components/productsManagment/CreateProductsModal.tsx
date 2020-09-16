@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Modal, Button, Select } from "antd";
-import { addOne, fetchAll } from "../redux/actions/models";
-import MultipleInputSelect from "./MultipleInputSelect";
-import FormItem from "antd/lib/form/FormItem";
+import { addOne, fetchAll } from "../../redux/actions/models";
+import "antd/dist/antd.css";
+import MultipleInputSelect from "../MultipleInputSelect";
+import { useForm } from "react-hook-form";
 
 const layout = {
   labelCol: { span: 8 },
@@ -15,25 +16,40 @@ const tailLayout = {
 
 function CreateProductsModal({ showModal, visible }: any) {
   const [form] = Form.useForm();
-  const { Option } = Select;
+  const { register, handleSubmit, errors } = useForm();
   const [products, setProducts] = useState({});
+  const [category, setCategory] = useState({});
   const dispatch = useDispatch();
   const categories = useSelector((state: any) => state.models["categories"]);
 
-  function handleAddCategories(filiers: []) {
-    console.log(filiers);
-    setProducts((products) => ({
-      ...products,
-      categories: categories?.map((f: any) => ({ id: f.value })),
-    }));
+  function handleAddCategories(selectedCategories: any) {
+    if (selectedCategories.length === 1) {
+      setProducts((products) => ({
+        ...products,
+        categories: categories?.map((f: any) => ({ id: f.value })),
+      }));
+      setCategory(categories?.map((cat: any) => ({ id: cat.value })));
+      console.log(category);
+    }
   }
   useEffect(() => {
     dispatch(fetchAll("categories"));
   }, []);
 
   const addProduct = () => {
-    dispatch(addOne("products", products));
-    showModal(false);
+    form
+      .validateFields()
+      .then(() => {
+        dispatch(addOne("products", products));
+        showModal(false);
+      })
+      .catch((error) => {
+        return;
+      });
+  };
+  const onSubmit = (data: any) => {
+    console.log("image", data.image[0].name);
+    setProducts({ ...products, picture: data.image[0].name });
   };
 
   return (
@@ -41,6 +57,7 @@ function CreateProductsModal({ showModal, visible }: any) {
       title="Add product "
       visible={visible}
       onCancel={() => showModal(false)}
+      forceRender={true}
       footer={[
         <Button form="myForm" key="creer" onClick={addProduct}>
           Add
@@ -51,14 +68,28 @@ function CreateProductsModal({ showModal, visible }: any) {
       ]}
     >
       <Form {...layout} form={form} id="myForm" name="control-hooks">
-        <Form.Item label="Designation" rules={[{ required: true }]}>
+        <Form.Item>
+          <input
+            style={{ float: "right" }}
+            type="file"
+            ref={register({ required: true, maxLength: 30 })}
+            onChange={handleSubmit(onSubmit)}
+            name="image"
+          />
+          {errors.name && errors.name.type === "required" && (
+            <span>This is required</span>
+          )}
+          {errors.name && errors.name.type === "maxLength" && (
+            <span>Max length exceeded</span>
+          )}
+        </Form.Item>
+        <Form.Item label="Designation" rules={[{ required: true }]} required>
           <Input
             type="text"
             onChange={(e) => {
               e.persist();
               setProducts({ ...products, designation: e.target.value });
             }}
-            style={{ marginLeft: "12px" }}
           />
         </Form.Item>
         <Form.Item label="Description">
@@ -68,29 +99,28 @@ function CreateProductsModal({ showModal, visible }: any) {
               e.persist();
               setProducts({ ...products, description: e.target.value });
             }}
-            style={{ marginLeft: "12px" }}
           />
         </Form.Item>
-        <Form.Item label="price" rules={[{ required: true }]}>
+        <Form.Item label="price" rules={[{ required: true }]} required>
           <Input
             type="text"
             onChange={(e) => {
               e.persist();
               setProducts({ ...products, price: parseFloat(e.target.value) });
             }}
-            style={{ marginLeft: "12px" }}
+            required
           />
         </Form.Item>
-        <Form.Item name="filiers" label="Field(s)">
+        <Form.Item name="categories" label="Categorie(s)">
           <MultipleInputSelect
             values={categories}
-            placeHolder="select field"
+            placeHolder="select categorie"
             key="id"
             title="designation"
             handleChange={handleAddCategories}
           />
         </Form.Item>
-        <FormItem {...tailLayout}></FormItem>
+        <Form.Item {...tailLayout}></Form.Item>
       </Form>
     </Modal>
   );

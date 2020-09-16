@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "antd";
 import { fetchAll } from "../redux/actions/models";
 import { useDispatch, useSelector } from "react-redux";
-import HomeLayout from "../components/HomeLayout";
-import ProductForm from "../components/CreateProductsModal";
-import "../components/css/products.css";
+import HomeLayout from "../components/Home/HomeLayout";
 import PlusButton from "../components/svgs/PlusButton";
-import ProductsCard from "../components/ProductsCard";
-import "../components/css/products.css";
-import "@ant-design/compatible/assets/index.css";
-import CreateProductsModal from "../components/CreateProductsModal";
+import ProductsCard from "../components/productsManagment/ProductsCard";
+import "../components/productsManagment/css/products.css";
+//import "@ant-design/compatible/assets/index.css";
+import CreateProductsModal from "../components/productsManagment/CreateProductsModal";
 
 function Home() {
   const [visible, showModal] = useState(false);

@@ -18,13 +18,13 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import "./css/file.css";
+import "./../css/file.css";
 import { useDispatch } from "react-redux";
-import { deleteOne } from "../redux/actions/models";
+import { deleteOne } from "../../redux/actions/models";
 import EditProductsModal from "./EditProductsModal";
 
-function DropDownProduct({ cours }: any) {
-  const { id } = cours;
+function DropDownProduct(products: any) {
+  const { id } = products;
   const [visible, showEditModal] = useState(false);
   const { Option } = Select;
   const [image, setImage] = useState();
@@ -37,8 +37,8 @@ function DropDownProduct({ cours }: any) {
         className="mydropdown"
         onClick={() => showEditModal(!visible)}
       >
-        <EditOutlined />
-        edit
+        <EditOutlined style={{ color: "#e8501d" }} />
+        Edit
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item
@@ -46,7 +46,7 @@ function DropDownProduct({ cours }: any) {
         className="mydropdown"
         onClick={() => dispatch(deleteOne("products", id))}
       >
-        <DeleteOutlined /> delete
+        <DeleteOutlined style={{ color: "#e8501d" }} /> Delete
       </Menu.Item>
     </Menu>
   );
@@ -59,7 +59,7 @@ function DropDownProduct({ cours }: any) {
         </a>
       </Dropdown>
       <EditProductsModal
-        coursToEdit={cours}
+        productsToEdit={products}
         showModal={showEditModal}
         visible={visible}
       />

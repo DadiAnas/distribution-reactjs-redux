@@ -1,8 +1,11 @@
 .ant-layout-sider-zero-width-trigger {
-    top: -1%;
-    right: -32px;
-    background-color: transparent;
-    font-size: 22px;
+    top: 50% !important;
+    right: -30px !important;
+    background-color: transparent !important;
+    font-size: 22px !important;
+
+
+    border-radius: solid black 0 5 0 5 !important;
 }
 
 .ant-layout-sider-zero-width-trigger:hover {
@@ -10,7 +13,10 @@
 }
 
 .anticon-bars {
-    color: grey;
-    background: white;
-    border: 1px solid #F0F0F0
+    color: #e8501d !important;
+    background: transparent !important;
+    border: 1px solid #F0F0F0 !important;
+
 }
+
+.anticon anticon-bars {}

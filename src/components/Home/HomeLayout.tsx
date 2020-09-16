@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import NGCLogo from "../components/svgs/NGCLogo";
+import Logo from "../svgs/Logo";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Form,
-  Modal,
-  Layout,
-  Menu,
-  Breadcrumb,
-  Card,
-  Col,
-  Row,
-  Input,
-  Button,
-} from "antd";
+import { Layout, Menu } from "antd";
 import { SettingFilled, ReadOutlined, TeamOutlined } from "@ant-design/icons";
 import HomeBreadCrumbs from "./HomeBreadCrumbs";
+import "../css/Layout.css";
+import SettingsSVG from "../svgs/settings";
+import ExpandLeft from "../svgs/ExpandLeft";
+import Bottle from "../svgs/Bottle";
 
 const { Header, Content, Sider } = Layout;
 
@@ -30,8 +23,8 @@ function HomeLayout({ children }: any) {
   };
   return (
     <Layout>
-      <Header className="nav">
-        <NGCLogo />
+      <Header className="nav" style={{ backgroundColor: "white" }}>
+        <Logo />
       </Header>
       <Layout>
         <Sider
@@ -49,33 +42,24 @@ function HomeLayout({ children }: any) {
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
             selectedKeys={pathRoutes}
+            expandIcon={<ExpandLeft />}
           >
-            <Menu.Item
-              key="home"
-              style={{ color: "rgba(0, 0, 0, 0.65)" }}
-              icon={
-                <ReadOutlined style={{ color: "rgba(206, 47, 142, 0.61)" }} />
-              }
-            >
-              <Link to="/home">Products</Link>
+            <Menu.Item key="products" icon={<Bottle />}>
+              <Link to="/products" style={{ position: "relative", left: 10 }}>
+                Products
+              </Link>
             </Menu.Item>
             <Menu.Item
-              key="filieres"
+              key="categories"
               style={{ color: "rgba(0, 0, 0, 0.65)" }}
-              icon={
-                <TeamOutlined style={{ color: "rgba(206, 47, 142, 0.61)" }} />
-              }
+              icon={<ReadOutlined style={{ color: "#e8501d" }} />}
             >
               <Link to="/categories">Categories</Link>
             </Menu.Item>
-            <Menu.Item
-              key="settings"
-              icon={
-                <SettingFilled style={{ color: "rgba(206, 47, 142, 0.61)" }} />
-              }
-              style={{ color: "rgba(0, 0, 0, 0.65)" }}
-            >
-              <Link to="/settings">Settings</Link>
+            <Menu.Item key="settings" icon={<SettingsSVG />}>
+              <Link to="/settings" style={{ position: "relative", left: 10 }}>
+                Settings
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>

@@ -23,7 +23,7 @@ function MultipleInputSelect(props: any) {
       onChange={handleChange}
       labelInValue
       optionLabelProp="label"
-      options={values?.map((v: any) => ({ value: v.id, label: v.title }))}
+      options={values?.map((v: any) => ({ value: v.id, label: v.name }))}
     />
   );
 }

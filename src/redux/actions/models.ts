@@ -1,5 +1,7 @@
 import api from "../../api";
 import { Model } from "../types";
+import { Modal } from "antd";
+import ErrorModal from "../../components/ErrorModal";
 
 export const FETCH_ALL = "FETCH_ALL";
 
@@ -17,6 +19,7 @@ export const fetchAll = (model: Model, query: string = "") => {
       })
       .catch((err) => {
         console.error(`Fetch All ${model} error:\n`, err);
+        ErrorModal(err);
       });
   };
 };
@@ -33,6 +36,7 @@ export const addOne = (model: Model, data: any) => {
       })
       .catch((err) => {
         console.error(err);
+        ErrorModal(err);
       });
   };
 };
@@ -52,6 +56,7 @@ export const editOne = (model: Model, id: number, data: any) => {
       })
       .catch((err) => {
         console.error(err);
+        ErrorModal(err);
       });
   };
 };
@@ -68,6 +73,7 @@ export const deleteOne = (model: Model, id: number) => {
       })
       .catch((err) => {
         console.error(err);
+        ErrorModal(err);
       });
   };
 };
