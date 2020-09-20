@@ -1,24 +1,28 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import CategorieListProduct from "../components/productsManagment/categoriesManagment/CategorieListProduct";
-import Categories from "../components/productsManagment/categoriesManagment/Categories";
-
-import Home from "./Home";
+import CategoryProductComponent from "../components/categories/CategoryProductsComponent";
+import CategoriesPage from "./CategoriesPage";
+import HomePage from "./HomePage";
+import ProductsPage from "./ProductsPage";
+import SettingsPage from "./SettingsPage";
 
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
       <Route exact path="/products">
-        <Home />
+        <ProductsPage />
       </Route>
       <Route exact path="/categories">
-        <Categories />
+        <CategoriesPage />
       </Route>
       <Route exact path="/categories/:categorieId/products">
-        <CategorieListProduct />
+        <CategoryProductComponent />
+      </Route>
+      <Route exact path="/settings">
+        <SettingsPage />
+      </Route>
+      <Route path="/">
+        <HomePage />
       </Route>
     </Switch>
   );

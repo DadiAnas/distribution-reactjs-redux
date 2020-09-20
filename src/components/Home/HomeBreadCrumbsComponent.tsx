@@ -2,7 +2,7 @@ import React from "react";
 import { Breadcrumb } from "antd";
 import { useLocation, useParams, Link } from "react-router-dom";
 
-function HomeBreadCrumbs() {
+function HomeBreadCrumbsComponent() {
   const location = useLocation();
   const paths = location.pathname.split("/");
   const { categorieId } = useParams();
@@ -26,4 +26,4 @@ function HomeBreadCrumbs() {
   );
 }
 
-export default HomeBreadCrumbs;
+export default HomeBreadCrumbsComponent;

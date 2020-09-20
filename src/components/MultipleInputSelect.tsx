@@ -16,6 +16,7 @@ function MultipleInputSelect(props: any) {
   const { values, key, title, handleChange, placeHolder, value } = props;
   return (
     <Select
+      key={key}
       defaultValue={value?.map((v: any) => ({ key: v.id }))}
       mode="multiple"
       style={{ width: "100%" }}

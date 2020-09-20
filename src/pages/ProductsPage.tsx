@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "antd";
 import { fetchAll } from "../redux/actions/models";
 import { useDispatch, useSelector } from "react-redux";
-import HomeLayout from "../components/Home/HomeLayout";
+import HomeLayoutComponent from "../components/Home/HomeLayoutComponent";
 import PlusButton from "../components/svgs/PlusButton";
-import ProductsCard from "../components/productsManagment/ProductsCard";
-import "../components/productsManagment/css/products.css";
-//import "@ant-design/compatible/assets/index.css";
-import CreateProductsModal from "../components/productsManagment/CreateProductsModal";
+import ProductCreateModalComponent from "../components/products/ProductCreateModalComponent";
+import "../components/css/products.css";
+import ProductTableComponent from "../components/products/ProductTableComponent";
 
-function Home() {
+function ProductsPage() {
   const [visible, showModal] = useState(false);
   const dispatch = useDispatch();
   const products: any = useSelector((state: any) => state.models["products"]);
@@ -18,9 +16,22 @@ function Home() {
   }, []);
 
   return (
-    <HomeLayout>
+    <HomeLayoutComponent>
       <div className="site-card-wrapper">
-        <Row gutter={[48, 24]}>
+        {products && <ProductTableComponent {...products} />}
+      </div>
+      <div className="footer">
+        <PlusButton showModal={() => showModal(!visible)} />
+      </div>
+      <ProductCreateModalComponent visible={visible} showModal={showModal} />
+    </HomeLayoutComponent>
+  );
+}
+
+export default ProductsPage;
+
+{
+  /* <Row gutter={[48, 24]}>
           {products &&
             products.map((products: any) => (
               <Col
@@ -31,17 +42,8 @@ function Home() {
                 lg={8}
                 xl={8}
               >
-                <ProductsCard {...products} />
+                { <ProductCardComponent {...products} /> }
               </Col>
             ))}
-        </Row>
-      </div>
-      <div className="footer">
-        <PlusButton showModal={() => showModal(!visible)} />
-      </div>
-      <CreateProductsModal visible={visible} showModal={showModal} />
-    </HomeLayout>
-  );
+        </Row> */
 }
-
-export default Home;

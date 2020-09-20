@@ -1,24 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Menu,
-  Modal,
-  Button,
-  Popconfirm,
-  Form,
-  Input,
-  Select,
-  Dropdown,
-  Upload,
-  message,
-} from "antd";
+import { Modal, Button, Form, Input, Select, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-  SettingOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { fetchAll, editOne } from "../../redux/actions/models";
 import MultipleInputSelect from "../MultipleInputSelect";
 
@@ -47,18 +30,18 @@ function cancel(e: any) {
   message.error("Click on No");
 }
 
-function EditProductsModal({ visible, showModal, productsToEdit }: any) {
+function ProductEditModalComponent({ visible, showModal, productToEdit }: any) {
   const [loading, setLoading] = useState(false);
   const categories = useSelector((state: any) => state.models["categories"]);
-  const [products, setProducts] = useState<any>({ ...productsToEdit });
+  const [products, setProducts] = useState<any>({ ...productToEdit });
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   useEffect(() => {
-    setProducts({ ...productsToEdit.products });
-    form.setFieldsValue(products); //({...productsToEdit,categories:productsToEdit.categories.map((f:any) => f.id)})
+    setProducts({ ...productToEdit });
+    form.setFieldsValue(productToEdit); //({...productToEdit,categories:productToEdit.categories.map((f:any) => f.id)})
     dispatch(fetchAll("categories"));
-  }, []);
+  }, [productToEdit]);
 
   function handleAddFiliere(categoriesIds: number[]) {
     console.log({ categoriesIds });
@@ -97,14 +80,12 @@ function EditProductsModal({ visible, showModal, productsToEdit }: any) {
   };
 
   const handleEdit = () => {
-    console.log(productsToEdit, products);
-
     dispatch(editOne("products", products.id, products));
     showModal(false);
   };
   return (
     <Modal
-      forceRender={true}
+      forceRender
       title="Edit product"
       visible={visible}
       onCancel={() => showModal(false)}
@@ -174,4 +155,4 @@ function EditProductsModal({ visible, showModal, productsToEdit }: any) {
   );
 }
 
-export default EditProductsModal;
+export default ProductEditModalComponent;

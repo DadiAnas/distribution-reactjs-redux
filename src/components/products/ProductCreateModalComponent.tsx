@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Modal, Button, Select } from "antd";
 import { addOne, fetchAll } from "../../redux/actions/models";
-import "antd/dist/antd.css";
+import "../../../node_modules/antd/dist/antd.css";
+
 import MultipleInputSelect from "../MultipleInputSelect";
 import { useForm } from "react-hook-form";
 
@@ -14,7 +15,7 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-function CreateProductsModal({ showModal, visible }: any) {
+function ProductCreateModalComponent({ showModal, visible }: any) {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
   const [products, setProducts] = useState({});
@@ -126,4 +127,4 @@ function CreateProductsModal({ showModal, visible }: any) {
   );
 }
 
-export default CreateProductsModal;
+export default ProductCreateModalComponent;

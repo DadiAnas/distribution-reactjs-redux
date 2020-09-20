@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Input, Select } from "antd";
 import { useDispatch } from "react-redux";
-import { addOne } from "../../../redux/actions/models";
-
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+import { addOne } from "../../redux/actions/models";
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-function CreateCategorieseModal({ showModal, visible }: any) {
+function CategoriesCreateModalComponent({ showModal, visible }: any) {
   const [form] = Form.useForm();
   const [categorie, setcategorie] = useState<any>({});
-  const { Option } = Select;
   const dispatch = useDispatch();
   const addcategorie = () => {
     dispatch(addOne("categories", categorie));
@@ -24,11 +19,11 @@ function CreateCategorieseModal({ showModal, visible }: any) {
   };
   return (
     <Modal
-      title="créer un categorie "
+      title="Create category "
       visible={visible}
       onCancel={() => showModal(false)}
       footer={[
-        <Button form="myForm" key="creer" onClick={addcategorie}>
+        <Button key="create" form="myForm" onClick={addcategorie}>
           creer
         </Button>,
         <Button key="cancel" htmlType="button" onClick={() => showModal(false)}>
@@ -39,7 +34,7 @@ function CreateCategorieseModal({ showModal, visible }: any) {
       <Form {...layout} form={form} name="control-hooks" id="myForm">
         <Form.Item
           name="name"
-          label="Nom du categorie"
+          label="Category Name"
           rules={[{ required: true }]}
         >
           <Input
@@ -59,4 +54,4 @@ function CreateCategorieseModal({ showModal, visible }: any) {
   );
 }
 
-export default CreateCategorieseModal;
+export default CategoriesCreateModalComponent;

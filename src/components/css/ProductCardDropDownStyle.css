@@ -1,0 +1,9 @@
+.product-card-dropdown-item {
+    width: 100px;
+    height: 27px;
+    color: "#e8501d";
+}
+
+.product-card-dropdown-item :hover {
+    background: linear-gradient(179.33deg, #FD749B -13.56%, #281AC8 158.3%);
+}

@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Input, Select } from "antd";
 import { useDispatch } from "react-redux";
-import { addOne, editOne } from "../../../redux/actions/models";
+import { addOne, editOne } from "../../redux/actions/models";
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-function EditCategoriesModal({ showModal, visible, filiere }: any) {
+function CategoriesEditModal({ showModal, visible, category }: any) {
   const [form] = Form.useForm();
-  const [newCategorie, setnewCategorie] = useState(filiere);
-  const { Option } = Select;
+  const [newCategorie, setnewCategorie] = useState(category);
   const dispatch = useDispatch();
-  const addfiliere = () => {
+  const addcategory = () => {
     dispatch(editOne("categories", newCategorie.id, newCategorie));
     showModal(false);
   };
 
   useEffect(() => {
-    setnewCategorie(filiere);
-    form.setFieldsValue(filiere);
-  }, [filiere]);
+    setnewCategorie(category);
+    form.setFieldsValue(category);
+  }, [category]);
   return (
     <Modal
       title="Edit Category"
       visible={visible}
       onCancel={() => showModal(false)}
       footer={[
-        <Button form="myForm" key="creer" onClick={addfiliere}>
+        <Button form="myForm" key="creer" onClick={addcategory}>
           edit
         </Button>,
         <Button key="cancel" htmlType="button" onClick={() => showModal(false)}>
@@ -46,8 +45,8 @@ function EditCategoriesModal({ showModal, visible, filiere }: any) {
             style={{ marginLeft: "12px" }}
             onChange={(e) => {
               e.persist();
-              setnewCategorie((filiere: any) => ({
-                ...filiere,
+              setnewCategorie((category: any) => ({
+                ...category,
                 name: e.target.value,
               }));
             }}
@@ -58,4 +57,4 @@ function EditCategoriesModal({ showModal, visible, filiere }: any) {
   );
 }
 
-export default EditCategoriesModal;
+export default CategoriesEditModal;
