@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-function CategoriesEditModal({ showModal, visible, category }: any) {
+function CategoriesEditModalComponent({ showModal, visible, category }: any) {
   const [form] = Form.useForm();
   const [newCategory, setnewCategory] = useState(category);
   const dispatch = useDispatch();
@@ -54,4 +54,4 @@ function CategoriesEditModal({ showModal, visible, category }: any) {
   );
 }
 
-export default CategoriesEditModal;
+export default CategoriesEditModalComponent;

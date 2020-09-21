@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { deleteOne } from "../../redux/actions/models";
 import { BarsOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import CategoriesEditModal from "./CategoriesEditModal";
+import CategoriesEditModalComponent from "./CategoriesEditModalComponent";
 
 function CategoriesTableComponent({ categories }: any) {
   const [visible, showEditModal] = useState(false);
@@ -57,7 +57,7 @@ function CategoriesTableComponent({ categories }: any) {
   return (
     <>
       <Table columns={columns} dataSource={categories || []} rowKey="id" />
-      <CategoriesEditModal
+      <CategoriesEditModalComponent
         category={categoryToEdit}
         visible={visible}
         showModal={showEditModal}
