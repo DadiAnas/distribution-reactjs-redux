@@ -1,7 +1,26 @@
 th {
-    font-size: medium;
+    font-size: bold;
+}
+
+td {
+    font-size: small;
 }
 
 .product-table-EditOutlined {
     color: orange;
+}
+
+.search-div {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    position: sticky;
+}
+
+.searchbar {
+    position: absolute;
+    height: 40px;
+    right: 100px;
+    border-radius: 100px;
+    width: auto;
+    float: right;
 }

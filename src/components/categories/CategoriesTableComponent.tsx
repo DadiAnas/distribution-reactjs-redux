@@ -1,82 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Button } from "antd";
-import PlusButton from "../svgs/PlusButton";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAll, deleteOne } from "../../redux/actions/models";
-import CreateCategoriesModal from "./CategoriesCreateModalComponent";
+import React, { useState } from "react";
+import { Button } from "antd";
+import Table, { ColumnProps } from "antd/lib/table";
+import { useDispatch } from "react-redux";
+import { deleteOne } from "../../redux/actions/models";
 import { BarsOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import CategoriesEditModal from "./CategoriesEditModal";
 
-function CategoriesTableComponent() {
-  const [isCreateModalVisible, showCreateModalVisible] = useState(false);
-  const [isEditModalVisible, showEditModalVisible] = useState(false);
-
-  const [categorieToEdit, setCategorieToEdit] = useState(null);
+function CategoriesTableComponent({ categories }: any) {
+  const [visible, showEditModal] = useState(false);
+  const [categoryToEdit, setCategorieToEdit] = useState(null);
   const dispatch = useDispatch();
-  const categories: any = useSelector(
-    (state: any) => state.models["categories"]
-  );
-  useEffect(() => {
-    dispatch(fetchAll("categories"));
-  }, []);
+
+  const columns: ColumnProps<any>[] = [
+    {
+      title: "Categories",
+      dataIndex: "name",
+      key: "id",
+      // width: "60%",
+    },
+    {
+      title: "products",
+      render: (cell, category, index) => (
+        <div className="actionButtons">
+          <Link to={`/categories/${category.id}/products`}>
+            <Button>
+              <BarsOutlined />
+            </Button>
+          </Link>
+        </div>
+      ),
+    },
+    {
+      title: "Actions",
+      render: (cell, category, index) => (
+        <div className="actionButtons">
+          <Button
+            onClick={() => {
+              setCategorieToEdit(category);
+              showEditModal(true);
+            }}
+          >
+            <EditOutlined style={{ color: "orange" }} />
+          </Button>
+          <Button
+            danger
+            onClick={() => dispatch(deleteOne("categories", category.id))}
+          >
+            <DeleteOutlined />
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
-      <Table
-        columns={[
-          {
-            title: "Categories",
-            dataIndex: "name",
-            key: "id",
-            width: "60%",
-          },
-          {
-            title: "",
-            render: (cell, row, index) => (
-              <>
-                <div className="actionButtons">
-                  <Link to={`/categories/${categories[index].id}/products`}>
-                    <Button>
-                      <BarsOutlined />
-                    </Button>
-                  </Link>
-                  <Button
-                    onClick={() => {
-                      setCategorieToEdit(categories[index]);
-                      showEditModalVisible(true);
-                    }}
-                  >
-                    <EditOutlined style={{ color: "orange" }} />
-                  </Button>
-                  <Button
-                    danger
-                    onClick={() =>
-                      dispatch(deleteOne("categories", categories[index].id))
-                    }
-                  >
-                    <DeleteOutlined />
-                  </Button>
-                </div>
-              </>
-            ),
-          },
-        ]}
-        dataSource={categories || []}
-        key="id"
-      />
-      <div className="footer">
-        <PlusButton
-          showModal={() => showCreateModalVisible(!isCreateModalVisible)}
-        />
-      </div>
-      <CreateCategoriesModal
-        visible={isCreateModalVisible}
-        showModal={showCreateModalVisible}
-      />
+      <Table columns={columns} dataSource={categories || []} rowKey="id" />
       <CategoriesEditModal
-        categorie={categorieToEdit}
-        visible={isEditModalVisible}
-        showModal={showEditModalVisible}
+        category={categoryToEdit}
+        visible={visible}
+        showModal={showEditModal}
       />
     </>
   );

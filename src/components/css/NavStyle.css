@@ -1,0 +1,8 @@
+.menu {
+    background: white;
+    border: 2px solid #F0F0F0;
+    height: inherit;
+    overflow-y: auto;
+    height: auto;
+    overflow-x: hidden;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "antd";
 import Logo from "../svgs/Logo";
+import "../css/NavStyle.css";
 
 const { Header } = Layout;
 

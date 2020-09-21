@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import CategoryProductComponent from "../components/categories/CategoryProductsComponent";
+import CategoryProductsPage from "./CategoryProductsPage";
 import CategoriesPage from "./CategoriesPage";
 import HomePage from "./HomePage";
 import ProductsPage from "./ProductsPage";
@@ -16,7 +16,7 @@ function Routes() {
         <CategoriesPage />
       </Route>
       <Route exact path="/categories/:categorieId/products">
-        <CategoryProductComponent />
+        <CategoryProductsPage />
       </Route>
       <Route exact path="/settings">
         <SettingsPage />

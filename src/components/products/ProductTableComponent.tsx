@@ -13,9 +13,8 @@ import "../css/ProductTableStyle.css";
 import { Link } from "react-router-dom";
 import ProductEditModalComponent from "./ProductEditModalComponent";
 
-function ProductTableComponent() {
+function ProductTableComponent({ products }: any) {
   const dispatch = useDispatch();
-  const products: any = useSelector((state: any) => state.models["products"]);
   const [visible, showEditModal] = useState(false);
   const [productToEdit, setProductToEdit] = useState({});
 
@@ -42,11 +41,11 @@ function ProductTableComponent() {
       render: (cell, product, index) => (
         <>
           <div className="actionButtons">
-            <Link to={`/products/${product.id}`}>
+            {/* <Link to={`/products/${product.id}`}>
               <Button>
                 <BarsOutlined />
               </Button>
-            </Link>
+            </Link> */}
             <Button
               onClick={() => {
                 showEditModal(!visible);

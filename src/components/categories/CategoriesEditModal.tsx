@@ -4,25 +4,27 @@ import { useDispatch } from "react-redux";
 import { addOne, editOne } from "../../redux/actions/models";
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 6 },
   wrapperCol: { span: 16 },
 };
 
 function CategoriesEditModal({ showModal, visible, category }: any) {
   const [form] = Form.useForm();
-  const [newCategorie, setnewCategorie] = useState(category);
+  const [newCategory, setnewCategory] = useState(category);
   const dispatch = useDispatch();
   const addcategory = () => {
-    dispatch(editOne("categories", newCategorie.id, newCategorie));
+    dispatch(editOne("categories", newCategory.id, newCategory));
     showModal(false);
   };
 
   useEffect(() => {
-    setnewCategorie(category);
+    setnewCategory(category);
     form.setFieldsValue(category);
+    console.log(newCategory);
   }, [category]);
   return (
     <Modal
+      forceRender
       title="Edit Category"
       visible={visible}
       onCancel={() => showModal(false)}
@@ -36,16 +38,11 @@ function CategoriesEditModal({ showModal, visible, category }: any) {
       ]}
     >
       <Form {...layout} form={form} name="control-hooks" id="myForm">
-        <Form.Item
-          name="title"
-          label="New Category Name"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="name" label="Name" rules={[{ required: true }]}>
           <Input
-            style={{ marginLeft: "12px" }}
             onChange={(e) => {
               e.persist();
-              setnewCategorie((category: any) => ({
+              setnewCategory((category: any) => ({
                 ...category,
                 name: e.target.value,
               }));

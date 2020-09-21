@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Modal, Button, Select } from "antd";
 import { addOne, fetchAll } from "../../redux/actions/models";
 import "../../../node_modules/antd/dist/antd.css";
-
 import MultipleInputSelect from "../MultipleInputSelect";
 import { useForm } from "react-hook-form";
+import "../css/ProductCreateModalStyle.css";
 
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 6 },
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
@@ -23,15 +23,12 @@ function ProductCreateModalComponent({ showModal, visible }: any) {
   const dispatch = useDispatch();
   const categories = useSelector((state: any) => state.models["categories"]);
 
-  function handleAddCategories(selectedCategories: any) {
-    if (selectedCategories.length === 1) {
-      setProducts((products) => ({
-        ...products,
-        categories: categories?.map((f: any) => ({ id: f.value })),
-      }));
-      setCategory(categories?.map((cat: any) => ({ id: cat.value })));
-      console.log(category);
-    }
+  function handleAddCategories() {
+    setProducts((products) => ({
+      ...products,
+      categories: categories?.map((f: any) => ({ id: f.value })),
+    }));
+    setCategory(categories?.map((cat: any) => ({ id: cat.value })));
   }
   useEffect(() => {
     dispatch(fetchAll("categories"));
@@ -69,13 +66,12 @@ function ProductCreateModalComponent({ showModal, visible }: any) {
       ]}
     >
       <Form {...layout} form={form} id="myForm" name="control-hooks">
-        <Form.Item>
-          <input
-            style={{ float: "right" }}
+        <Form.Item label="Picture">
+          <Input
             type="file"
-            ref={register({ required: true, maxLength: 30 })}
             onChange={handleSubmit(onSubmit)}
             name="image"
+            className="product-input-image"
           />
           {errors.name && errors.name.type === "required" && (
             <span>This is required</span>

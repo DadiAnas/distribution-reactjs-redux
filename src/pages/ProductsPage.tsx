@@ -18,7 +18,7 @@ function ProductsPage() {
   return (
     <HomeLayoutComponent>
       <div className="site-card-wrapper">
-        {products && <ProductTableComponent {...products} />}
+        {products && <ProductTableComponent products={products} />}
       </div>
       <div className="footer">
         <PlusButton showModal={() => showModal(!visible)} />

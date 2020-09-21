@@ -14,5 +14,13 @@
     color: #e8501d !important;
     background: transparent !important;
     border: 1px solid #F0F0F0 !important;
+}
 
+.ant-layout .ant-layout-has-sider {
+    height: 84vh;
+}
+
+.ant-layout {
+    background: #FFF9FE;
+    border: 2px solid #F0F0F0;
 }
